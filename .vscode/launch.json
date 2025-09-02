@@ -1,0 +1,17 @@
+// filepath: c:\Users\Ndegwa\scraping\wto\.vscode\launch.json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Scrapy: wto_docs",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "scrapy",
+            "args": [
+                "crawl",
+                "wto_docs"
+            ],
+            "console": "integratedTerminal"
+        }
+    ]
+}

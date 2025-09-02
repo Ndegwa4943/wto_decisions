@@ -1,4 +1,4 @@
-# file: ug_tat/db/session.py
+# file: wto/db/session.py
 
 import os
 from dotenv import load_dotenv

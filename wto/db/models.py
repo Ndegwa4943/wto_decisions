@@ -1,7 +1,9 @@
-# file: ug_tat/db/models.py
+# file: wto/db/models.py
 
 from sqlalchemy import Column, String, Integer, DateTime, ForeignKey, LargeBinary, JSON
 from sqlalchemy.orm import declarative_base, relationship
+from sqlalchemy.dialects.postgresql import JSONB 
+from sqlalchemy.sql import func                    # for server default
 
 Base = declarative_base()
 
@@ -15,8 +17,8 @@ class Document(Base):
     name = Column(String, nullable=False)
     timestamp = Column(DateTime)
     path = Column(String)  # ltree-style
-    data = Column(JSON, nullable=False)    # for metadata searchable in JibuDocs
-    ingested_at = Column(DateTime, nullable=True)
+    data = Column(JSONB, nullable=False)     # replace JSON with JSONB
+    ingested_at = Column(DateTime, nullable=False, server_default=func.now()) 
 
     # 1:1 relationship with the blob
     blob = relationship("ScraperBlobStore", uselist=False, back_populates="document", cascade="all, delete")

@@ -7,13 +7,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
+from scrapy_playwright.page import PageMethod
 BOT_NAME = "wto"
 SPIDER_MODULES = ["wto.spiders"]
 NEWSPIDER_MODULE = "wto.spiders"
 
-ITEM_PIPELINES = {
-    "wto.pipelines.PostgresPipeline": 300,
-}
+#ITEM_PIPELINES = {
+#    "wto.pipelines.PostgresPipeline": 300,
+#}
 
 
 ADDONS = {}
@@ -113,3 +114,6 @@ PG_DSN = None
 
 # Export settings (if you ever feed export items)
 FEED_EXPORT_ENCODING = "utf-8"
+
+# Wait for selector method
+PageMethod("wait_for_selector", "div.hitContainer")
