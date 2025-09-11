@@ -2,7 +2,9 @@
 import scrapy
 
 class WtoDocumentItem(scrapy.Item):
+    doc_uuid = scrapy.Field()
     url = scrapy.Field()               # The URL of the document
+    file_urls = scrapy.Field()   
     name = scrapy.Field()              # The name of the scraper used
     path = scrapy.Field()              # e.g. "wto.docs.legal"
     scraper = scrapy.Field()           # e.g. "wto_docs"

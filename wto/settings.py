@@ -28,8 +28,8 @@ ROBOTSTXT_OBEY = False
 
 # Concurrency and throttling settings
 #CONCURRENT_REQUESTS = 16
-CONCURRENT_REQUESTS_PER_DOMAIN = 5
-DOWNLOAD_DELAY = 1
+CONCURRENT_REQUESTS_PER_DOMAIN = 3
+DOWNLOAD_DELAY = 0.5
 
 # Disable cookies (enabled by default)
 #COOKIES_ENABLED = False
@@ -63,9 +63,9 @@ DOWNLOAD_DELAY = 1
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    "wto.pipelines.WtoPipeline": 300,
-#}
+ITEM_PIPELINES = {
+    "wto.pipelines.WtoPipeline": 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
@@ -112,8 +112,23 @@ RETRY_TIMES = 3
 # Postgres DSN (override via env/CLI)
 PG_DSN = None
 
-# Export settings (if you ever feed export items)
-FEED_EXPORT_ENCODING = "utf-8"
+FEED_EXPORT_FIELDS = ["name", "url", "symbol", "date", "scraper", "version", "file_urls", "files", "data"]
 
-# Wait for selector method
-PageMethod("wait_for_selector", "div.hitContainer")
+custom_settings = {
+        # Gentle defaults help with Cloudflare-y sites
+        "DEFAULT_REQUEST_HEADERS": {
+            "User-Agent": (
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/123.0 Safari/537.36"
+            ),
+            "Referer": "https://docs.wto.org/",
+            "Accept-Language": "en-US,en;q=0.9",
+        },
+        # If you use FilesPipeline for file_urls
+        # "ITEM_PIPELINES": {"scrapy.pipelines.files.FilesPipeline": 1},
+        # "FILES_STORE": "files",
+    }
+
+# Avoid Scrapy source-inspection bug on callbacks (prevents SyntaxError from warn_on_generator_with_return_value)
+CHECK_CALLBACK_RESULT = False
